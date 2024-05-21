@@ -37,15 +37,17 @@ gamesRouter.post(
 gamesRouter.get("/games/:id", findGameById, sendGameById);
 gamesRouter.put(
   "/games/:id",
+  checkAuth,
   findGameById,
   checkIsVoteRequest,  
   checkIfCategoriesAvaliable,
   checkIfUsersAreSafe,
   checkEmptyFields,
   checkIsGameExists,
-  checkAuth,
   updateGame,
   sendGameUpdated,  
 );
 gamesRouter.delete("/games/:id",checkAuth, deleteGame, sendGameDeleted, );
 module.exports = gamesRouter;
+
+

@@ -42,6 +42,7 @@ const updateUser = async (req, res, next) => {
 };
 
 const deleteUser = async (req, res, next) => {
+ 
   try {
     req.user = await users.findByIdAndDelete(req.params.id);
     next();
@@ -87,7 +88,7 @@ const checkEmptyNameAndEmailAndPassword = async (req, res, next) => {
     !req.body.password
   ) {
         res.setHeader("Content-Type", "application/json");
-        res.status(400).send(JSON.stringify({ message: "Заполни Имя и Почту и Пароль" }));
+        res.status(400).send(JSON.stringify({ message: "Заполни Имя, Почту и Пароль" }));
   } else {
     // Если всё в порядке, то передадим управление следующим миддлварам
     next();
@@ -119,6 +120,20 @@ const checkIsUserExists = async (req, res, next) => {
   }
 }; 
 
+const checkPasswordLength = async (req, res, next) => {
+  if
+  (req.body.password.length < 7){
+  
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(JSON.stringify({ message: "Пароль Должен быть длинее 7 символов" }));
+      
+    
+  } else {
+    next();
+  }
+}; 
+
+
 
 module.exports = {
   findAllUsers,
@@ -130,5 +145,6 @@ module.exports = {
   hashPassword,
   checkIsUserExists,
   checkEmptyNameAndEmailAndPassword,
-  checkEmptyNameAndEmail
+  checkEmptyNameAndEmail,
+  checkPasswordLength
 };
