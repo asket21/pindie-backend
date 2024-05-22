@@ -23,7 +23,7 @@ const {
   sendUserDeleted,
   sendMe
 } = require("../controllers/users");
-const { login } = require("../controllers/auth");
+
 
 usersRouter.get("/users", findAllUsers,filterPassword, sendAllUsers);
 usersRouter.post(
@@ -55,7 +55,7 @@ usersRouter.post(
   hashPassword,  
   createUser,
   sendUserCreated,
-  login,   
+  
 );
 
 usersRouter.get("/me", checkAuth,sendMe)
