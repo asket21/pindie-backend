@@ -1,6 +1,6 @@
 const games = require("../models/game");
 
-const findAllGames = async (req, res, next) => {
+const findAllGames = async (req, next) => {
 
   if(req.query["categories.name"]) {
     req.gamesArray = await games.findGameByCategory(req.query["categories.name"]);
@@ -143,7 +143,7 @@ const checkIsGameExists = async (req, res, next) => {
   }
 }; 
 
-const checkIsVoteRequest = async (req, res, next) => {
+const checkIsVoteRequest = async (req, next) => {
   // Если в запросе присылают только поле users
 if (Object.keys(req.body).length === 1 && req.body.users) {
   req.isVoteRequest = true;

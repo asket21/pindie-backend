@@ -7,9 +7,8 @@ const findAllUsers = async (req, res, next) => {
 };
 
 const createUser = async (req, res, next) => {
-  console.log("POST /api/users")
+  console.log("POST /api/users");
   try {
-   
     req.user = await users.create(req.body);
     next();
   } catch (error) {
@@ -42,7 +41,6 @@ const updateUser = async (req, res, next) => {
 };
 
 const deleteUser = async (req, res, next) => {
- 
   try {
     req.user = await users.findByIdAndDelete(req.params.id);
     next();
@@ -55,7 +53,6 @@ const deleteUser = async (req, res, next) => {
 };
 
 const filterPassword = (req, res, next) => {
-  
   const filterUser = (user) => {
     const { password, ...userWithoutPassword } = user.toObject();
     return userWithoutPassword;
@@ -82,31 +79,25 @@ const hashPassword = async (req, res, next) => {
 };
 
 const checkEmptyNameAndEmailAndPassword = async (req, res, next) => {
-  if (
-    !req.body.username ||
-    !req.body.email ||
-    !req.body.password
-  ) {
-        res.setHeader("Content-Type", "application/json");
-        res.status(400).send(JSON.stringify({ message: "Заполни Имя, Почту и Пароль" }));
+  if (!req.body.username || !req.body.email || !req.body.password) {
+    res.setHeader("Content-Type", "application/json");
+    res
+      .status(400)
+      .send(JSON.stringify({ message: "Заполни Имя, Почту и Пароль" }));
   } else {
     // Если всё в порядке, то передадим управление следующим миддлварам
     next();
   }
-}; 
+};
 const checkEmptyNameAndEmail = async (req, res, next) => {
-  if (
-    !req.body.username ||
-    !req.body.email
-    
-  ) {
-        res.setHeader("Content-Type", "application/json");
-        res.status(400).send(JSON.stringify({ message: "Заполни Имя и Почту" }));
+  if (!req.body.username || !req.body.email) {
+    res.setHeader("Content-Type", "application/json");
+    res.status(400).send(JSON.stringify({ message: "Заполни Имя и Почту" }));
   } else {
     // Если всё в порядке, то передадим управление следующим миддлварам
     next();
   }
-}; 
+};
 
 const checkIsUserExists = async (req, res, next) => {
   const isInArray = req.usersArray.find((user) => {
@@ -114,26 +105,28 @@ const checkIsUserExists = async (req, res, next) => {
   });
   if (isInArray) {
     res.setHeader("Content-Type", "application/json");
-        res.status(400).send(JSON.stringify({ message: "Пользователь с таким email уже существует" }));
+    res
+      .status(400)
+      .send(
+        JSON.stringify({ message: "Пользователь с таким email уже существует" })
+      );
   } else {
     next();
   }
-}; 
+};
 
 const checkPasswordLength = async (req, res, next) => {
-  if
-  (req.body.password.length < 7){
-  
+  if (req.body.password.length < 7) {
     res.setHeader("Content-Type", "application/json");
-    res.status(400).send(JSON.stringify({ message: "Пароль Должен быть длинее 7 символов" }));
-      
-    
+    res
+      .status(400)
+      .send(
+        JSON.stringify({ message: "Пароль Должен быть длинее 7 символов" })
+      );
   } else {
     next();
   }
-}; 
-
-
+};
 
 module.exports = {
   findAllUsers,
@@ -146,5 +139,5 @@ module.exports = {
   checkIsUserExists,
   checkEmptyNameAndEmailAndPassword,
   checkEmptyNameAndEmail,
-  checkPasswordLength
+  checkPasswordLength,
 };
