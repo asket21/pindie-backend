@@ -46,9 +46,9 @@ gameSchema.statics.findGameByCategory = function(category) {
     path: "users",
     select: "-password" // Позволяет получить записи о пользователях за исключением их паролей (они же хранятся в зашифрованном виде)
   })
-//   .then(games => {
-//     return games.filter(game => game.catgories.length > 0);
-// });
+  .then(games => {
+    return games.filter(game => game.catgories.length > 0);
+});
 };
 
 

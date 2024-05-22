@@ -39,7 +39,7 @@ usersRouter.post(
 usersRouter.get("/users/:id", findUserById, filterPassword, sendUserById);
 usersRouter.put(
   "/users/:id",
-  checkIsUserExists,
+  // checkIsUserExists, В теории нет
   checkEmptyNameAndEmail,
   checkAuth,
   updateUser,
