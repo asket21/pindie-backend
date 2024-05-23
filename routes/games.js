@@ -27,9 +27,11 @@ gamesRouter.get("/games", findAllGames, sendAllGames);
 gamesRouter.post(
   "/games",
   findAllGames,
-  checkIsGameExists,
+  checkAuth,
+  findGameById,
   checkIfCategoriesAvaliable,
   checkEmptyFields,
+  checkIsGameExists,
   checkAuth,
   createGame,  
   sendGameCreated
@@ -37,13 +39,14 @@ gamesRouter.post(
 gamesRouter.get("/games/:id", findGameById, sendGameById);
 gamesRouter.put(
   "/games/:id",
-  checkAuth,
-  findGameById,
-  checkIsVoteRequest,  
+   checkAuth,
+  findAllGames,
+  findGameById, 
+  checkIsVoteRequest,
   checkIfCategoriesAvaliable,
+  checkIsGameExists,  
   checkIfUsersAreSafe,
-  checkEmptyFields,
-  checkIsGameExists,
+  checkEmptyFields,  
   updateGame,
   sendGameUpdated,  
 );

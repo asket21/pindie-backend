@@ -125,10 +125,7 @@ const checkIsGameExists = async (req, res, next) => {
     return;
   } 
   
-  if (!req.body.users) {
-    next();
-    return;
-  }
+
 
   const isInArray = req.gamesArray.find((game) => {
     return req.body.title === game.title;
@@ -137,6 +134,7 @@ const checkIsGameExists = async (req, res, next) => {
   if (isInArray) {
     res.setHeader("Content-Type", "application/json");
         res.status(400).send(JSON.stringify({ message: "Игра с таким названием уже существует" }));
+        
   } else {
   
     next();
