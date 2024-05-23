@@ -32,9 +32,11 @@ categoriesRouter.post(
 categoriesRouter.get("/categories/:id", findCategoryById, sendCategoryById);
 categoriesRouter.put(
   "/categories/:id",
+  findAllCategories,
   findCategoryById,
-  checkEmptyName,
   checkAuth,
+  checkIsCategoryExists,
+  checkEmptyName,
   updateCategory,
   sendCategoryUpdated,  
 );
