@@ -21,16 +21,16 @@ const {
   sendUserById,
   sendUserUpdated,
   sendUserDeleted,
-  sendMe
+  sendMe,
 } = require("../controllers/users");
 
-
-usersRouter.get("/users", findAllUsers,filterPassword, sendAllUsers);
+usersRouter.get("/users", findAllUsers, filterPassword, sendAllUsers);
 usersRouter.post(
   "/users",
   findAllUsers,
   checkIsUserExists,
   checkEmptyNameAndEmailAndPassword,
+  checkPasswordLength,
   checkAuth,
   hashPassword,
   createUser,
@@ -39,7 +39,6 @@ usersRouter.post(
 usersRouter.get("/users/:id", findUserById, filterPassword, sendUserById);
 usersRouter.put(
   "/users/:id",
-  checkIsUserExists,
   checkEmptyNameAndEmail,
   checkAuth,
   updateUser,
@@ -52,13 +51,11 @@ usersRouter.post(
   checkIsUserExists,
   checkEmptyNameAndEmailAndPassword,
   checkPasswordLength,
-  hashPassword,  
+  hashPassword,
   createUser,
-  sendUserCreated,
-  
+  sendUserCreated
 );
 
-usersRouter.get("/me", checkAuth,sendMe)
-usersRouter.delete("/users/:id",checkAuth, deleteUser, sendUserDeleted);
+usersRouter.get("/me", checkAuth, sendMe);
+usersRouter.delete("/users/:id", checkAuth, deleteUser, sendUserDeleted);
 module.exports = usersRouter;
-

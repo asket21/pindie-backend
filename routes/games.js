@@ -13,7 +13,6 @@ const {
   checkIsVoteRequest,
 } = require("../middlewares/games");
 
-
 const {
   sendAllGames,
   sendGameCreated,
@@ -32,25 +31,23 @@ gamesRouter.post(
   checkIfCategoriesAvaliable,
   checkEmptyFields,
   checkIsGameExists,
-  checkAuth,
-  createGame,  
+  createGame,
   sendGameCreated
 );
 gamesRouter.get("/games/:id", findGameById, sendGameById);
 gamesRouter.put(
   "/games/:id",
-   checkAuth,
+
   findAllGames,
-  findGameById, 
+  checkAuth,
+  findGameById,
   checkIsVoteRequest,
+  checkEmptyFields,
   checkIfCategoriesAvaliable,
-  checkIsGameExists,  
+  checkIsGameExists,
   checkIfUsersAreSafe,
-  checkEmptyFields,  
   updateGame,
-  sendGameUpdated,  
+  sendGameUpdated
 );
-gamesRouter.delete("/games/:id",checkAuth, deleteGame, sendGameDeleted, );
+gamesRouter.delete("/games/:id", checkAuth, deleteGame, sendGameDeleted);
 module.exports = gamesRouter;
-
-
